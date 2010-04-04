@@ -7,12 +7,15 @@ using System.ComponentModel;
 using System.Diagnostics;
 using VPNKeepAlive.Properties;
 using System.Net.NetworkInformation;
+using System.Drawing;
+using System.Reflection;
 
 namespace VPNKeepAlive
 {
     public class VPNKeepAliveAppContext : ApplicationContext
     {
         bool connected = false;
+        bool pingFailed = false;
 
         IContainer components;
         NotifyIcon notifyIcon;
@@ -22,6 +25,9 @@ namespace VPNKeepAlive
         MenuItem connectMenuItem;
         MenuItem reconnectMenuItem;
         Timer timer;
+        Icon disconnectedIcon;
+        Icon connectedIcon;
+        Icon errorIcon;
 
         public VPNKeepAliveAppContext()
         {
@@ -39,14 +45,15 @@ namespace VPNKeepAlive
             exitMenuItem = new MenuItem();
             timer = new Timer(this.components);
 
+            // Load icons:
+            disconnectedIcon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("VPNKeepAlive.server_delete.ico"));
+            connectedIcon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("VPNKeepAlive.server_go.ico"));
+            errorIcon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("VPNKeepAlive.server_error.ico"));
+
             // notifyIcon
             notifyIcon.ContextMenu = contextMenu;
-            try
-            {
-                notifyIcon.Icon = new System.Drawing.Icon("App.ico");
-                notifyIcon.Visible = true;
-            }
-            catch { }
+            notifyIcon.Icon = disconnectedIcon;
+            notifyIcon.Visible = true;
             notifyIcon.Text = "Not connected";
             notifyIcon.DoubleClick += new EventHandler(notifyIcon_DoubleClick);
 
@@ -117,12 +124,25 @@ namespace VPNKeepAlive
 
         void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
-            if (connected) Disconnect(); else Connect();
+            if (connected)
+            {
+                Disconnect();
+                if (pingFailed)
+                {
+                    Connect();
+                }
+            }
+            else
+            {
+                Connect();
+            }
         }
 
 
         void Connect()
         {
+            this.notifyIcon.Icon = disconnectedIcon;
+
             var args = string.Format("{0} {1} {2}",
                 Settings.Default.Connection,
                 Settings.Default.Username,
@@ -134,6 +154,7 @@ namespace VPNKeepAlive
             connected = true;
             RefreshControl();
 
+            this.notifyIcon.Icon = connectedIcon;
             this.notifyIcon.ShowBalloonTip(3000, "Connected", "Connected to " + Settings.Default.Connection, ToolTipIcon.Info);
 
             StartPinging();
@@ -150,6 +171,7 @@ namespace VPNKeepAlive
                 .WaitForExit();
             connected = false;
             RefreshControl();
+            notifyIcon.Icon = disconnectedIcon;
         }
 
 
@@ -186,6 +208,13 @@ namespace VPNKeepAlive
                         Settings.Default.ServerName, e.Reply.Status.ToString());
                     this.notifyIcon.BalloonTipClicked += new EventHandler(notifyIcon_BalloonTipClicked);
                     this.notifyIcon.ShowBalloonTip(5000, "Ping failed", error, ToolTipIcon.Error);
+                    this.notifyIcon.Icon = errorIcon;
+                    this.pingFailed = true;
+                }
+                else
+                {
+                    this.notifyIcon.Icon = connectedIcon;
+                    this.pingFailed = false;
                 }
             });
             p.SendAsync(Settings.Default.ServerName, null);
@@ -198,5 +227,7 @@ namespace VPNKeepAlive
             Disconnect();
             Connect();
         }
+
+
     }
 }

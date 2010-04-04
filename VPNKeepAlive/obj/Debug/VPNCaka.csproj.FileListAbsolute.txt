@@ -1,0 +1,11 @@
+C:\Development\projects\VPNCaka\VPNCaka\obj\Debug\ResolveAssemblyReference.cache
+C:\Development\projects\VPNCaka\VPNCaka\obj\Debug\VPNCaka.Properties.Resources.resources
+C:\Development\projects\VPNCaka\VPNCaka\obj\Debug\VPNCaka.csproj.GenerateResource.Cache
+C:\Development\projects\VPNCaka\VPNCaka\bin\Debug\VPNCaka.exe
+C:\Development\projects\VPNCaka\VPNCaka\bin\Debug\VPNCaka.pdb
+C:\Development\projects\VPNCaka\VPNCaka\obj\Debug\VPNCaka.exe
+C:\Development\projects\VPNCaka\VPNCaka\obj\Debug\VPNCaka.pdb
+C:\Development\projects\VPNCaka\VPNCaka\bin\Debug\App.ico
+C:\Development\projects\VPNCaka\VPNCaka\bin\Debug\VPNCaka.exe.config
+C:\Development\projects\VPNCaka\VPNCaka\obj\Debug\VPNCaka.SettingsForm.resources
+C:\Development\projects\VPNCaka\VPNCaka\bin\Debug\VPNKeepAlive.exe.config

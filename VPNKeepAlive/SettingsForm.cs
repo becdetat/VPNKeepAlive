@@ -54,6 +54,8 @@ namespace VPNKeepAlive
             Settings.Default.Connection = connectionTextBox.Text;
             Settings.Default.Username = usernameTextBox.Text;
             Settings.Default.Password = passwordTextBox.Text;
+            Settings.Default.ServerName = serverNameTextBox.Text;
+            Settings.Default.PingDelay = (int)pingDelayNumericUpDown.Value;
             Settings.Default.Save();
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -72,12 +74,38 @@ namespace VPNKeepAlive
             connectionTextBox.Text = Settings.Default.Connection;
             usernameTextBox.Text = Settings.Default.Username;
             passwordTextBox.Text = Settings.Default.Password;
+            serverNameTextBox.Text = Settings.Default.ServerName;
+            pingDelayNumericUpDown.Value = Settings.Default.PingDelay;
             loading = false;
         }
 
         void RefreshControl()
         {
-            okButton.Enabled = modified;
+            okButton.Enabled = 
+                modified
+                && connectionTextBox.Text != ""
+                && usernameTextBox.Text != ""
+                && passwordTextBox.Text != ""
+                && serverNameTextBox.Text != ""
+                && pingDelayNumericUpDown.Value > 0;
+        }
+
+        private void pingDelayNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (!loading)
+            {
+                modified = true;
+                RefreshControl();
+            }
+        }
+
+        private void serverNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!loading)
+            {
+                modified = true;
+                RefreshControl();
+            }
         }
     }
 }

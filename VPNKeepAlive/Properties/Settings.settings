@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VPNCaka.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="VPNKeepAlive.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="Connection" Type="System.String" Scope="User">
@@ -9,6 +9,12 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PingDelay" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">15</Value>
+    </Setting>
+    <Setting Name="ServerName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

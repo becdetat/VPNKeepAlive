@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VPNCaka")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("VPNKeepAlive")]
+[assembly: AssemblyDescription("Keeps a VPN connection alive by pinging a remote server")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("VPNCaka")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
+[assembly: AssemblyCompany("Belfry Images")]
+[assembly: AssemblyProduct("VPNKeepAlive")]
+[assembly: AssemblyCopyright("Public Domain")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

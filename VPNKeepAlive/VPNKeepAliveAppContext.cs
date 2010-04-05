@@ -92,6 +92,14 @@ namespace VPNKeepAlive
             // timer
             timer.Tick += new EventHandler((o, e) => DoPing());
             timer.Enabled = false;
+
+            // this
+            this.ThreadExit += new EventHandler(VPNKeepAliveAppContext_ThreadExit);
+        }
+
+        void VPNKeepAliveAppContext_ThreadExit(object sender, EventArgs e)
+        {
+            this.notifyIcon.Visible = false;
         }
 
         void contextMenu_Popup(object sender, EventArgs e)
@@ -228,6 +236,6 @@ namespace VPNKeepAlive
             Connect();
         }
 
-
+        
     }
 }
